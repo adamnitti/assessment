@@ -13,11 +13,12 @@
 
 .image-txt-container .details {
     font-family: 'Raleway', sans-serif;
+    padding-left: 20px;
 }
 
-.image-round {
-    width: 200;
-    height: 200;
-    border: 3px solid 'black';
-    border-radius: 100;
+.image-txt-container .image-round {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    margin: 20px;
+    width: 150px;
 }
