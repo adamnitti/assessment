@@ -1,7 +1,12 @@
+import { useState } from 'react';
+
 function Search() {
-    const handleChange = () => {
-        console.log('changing...');
+    const [input, setInput] = useState('');
+    const handleChange = (e) => {
+        const change = e.target.value;
+        setInput(change);
     };
+
     return (
         <>
             <input
@@ -11,6 +16,7 @@ function Search() {
                 placeholder='Search by name'
                 onChange={handleChange}
             />
+            <p>{input}</p>
             <hr />
         </>
     );

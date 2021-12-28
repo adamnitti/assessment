@@ -5,11 +5,11 @@ function RecordDisplay() {
 
     // + calculates grade average for student
     const average = (grades, length) => {
-        console.log(grades);
+        //console.log(grades);
         var sum = 0;
         grades.map((grade) => {
             sum = sum + Number(grade);
-            console.log(sum);
+            //console.log(sum);
         });
         var average = sum / length;
         return average;
