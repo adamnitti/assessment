@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 function RecordDisplay() {
     const [records, setRecords] = useState(null);
+
+    // + calculates grade average for student
     const average = (grades, length) => {
         console.log(grades);
         var sum = 0;

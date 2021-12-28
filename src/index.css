@@ -8,11 +8,13 @@
 
 .image-txt-container .name {
     font-family: 'Raleway', sans-serif;
+    font-size: x-large;
     text-transform: uppercase;
 }
 
 .image-txt-container .details {
     font-family: 'Raleway', sans-serif;
+    font-size: medium;
     padding-left: 20px;
 }
 
@@ -21,4 +23,10 @@
     border-radius: 50%;
     margin: 20px;
     width: 150px;
+}
+
+.search-bar {
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: medium;
 }
