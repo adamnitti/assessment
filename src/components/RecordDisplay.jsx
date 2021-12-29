@@ -1,8 +1,32 @@
 import { useState, useEffect } from 'react';
-import Search from './Search';
+//import Search from './Search';
 
 function RecordDisplay() {
     const [records, setRecords] = useState(null);
+    const [input, setInput] = useState('');
+    const [filteredArray, setFilteredArray] = useState(records);
+
+    const handleChange = (e) => {
+        const change = e.target.value;
+
+        setInput(change);
+        filter(input);
+    };
+
+    const filter = () => {
+        const length = filteredArray.students.length;
+        console.log(length);
+        console.log(filteredArray);
+        filteredArray.filter(
+            (record) =>
+                record.students.firstName
+                    .toLowerCase()
+                    .includes(input.toLowerCase()) ||
+                record.students.lastName
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+        );
+    };
 
     // + calculates grade average for student
     const average = (grades, length) => {
@@ -10,7 +34,7 @@ function RecordDisplay() {
         var sum = 0;
         grades.map((grade) => {
             sum = sum + Number(grade);
-            //console.log(sum);
+            return sum;
         });
         var average = sum / length;
         return average;
@@ -29,13 +53,22 @@ function RecordDisplay() {
 
             // store the data into our records variable
             setRecords(data);
+            setFilteredArray(data);
             //console.log(data);
         }
     }, []); // <- you may need to put the setRecords function in this array
 
     return (
         <div>
-            <Search records={records} />
+            <input
+                className='search-bar'
+                type='text'
+                id='name-search'
+                placeholder='Search by name'
+                onChange={handleChange}
+            />
+            <p>{input}</p>
+            <hr />
             {/* display records from the API */}
             {records && (
                 <div>
