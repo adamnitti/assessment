@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Search from './Search';
 
 function RecordDisplay() {
     const [records, setRecords] = useState(null);
@@ -28,12 +29,13 @@ function RecordDisplay() {
 
             // store the data into our records variable
             setRecords(data);
-            console.log(data);
+            //console.log(data);
         }
     }, []); // <- you may need to put the setRecords function in this array
 
     return (
         <div>
+            <Search records={records} />
             {/* display records from the API */}
             {records && (
                 <div>
