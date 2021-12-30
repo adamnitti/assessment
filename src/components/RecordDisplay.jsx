@@ -1,36 +1,34 @@
 import { useState, useEffect } from 'react';
-//import Search from './Search';
 
 function RecordDisplay() {
-    const [records, setRecords] = useState(null);
+    const [records, setRecords] = useState();
     const [input, setInput] = useState('');
-    const [filteredArray, setFilteredArray] = useState(records);
+    const filteredArray = [];
 
     const handleChange = (e) => {
         const change = e.target.value;
 
         setInput(change);
-        filter(input);
+        filter();
     };
 
     const filter = () => {
-        const length = filteredArray.students.length;
-        console.log(length);
         console.log(filteredArray);
-        filteredArray.filter(
+        console.log('records=', records);
+        console.log('filteredArray=', filteredArray);
+        const filtered = records.students.filter(
             (record) =>
-                record.students.firstName
-                    .toLowerCase()
-                    .includes(input.toLowerCase()) ||
-                record.students.lastName
-                    .toLowerCase()
-                    .includes(input.toLowerCase())
+                record.firstName.toLowerCase().includes(input.toLowerCase()) ||
+                record.lastName.toLowerCase().includes(input.toLowerCase())
         );
+        console.log(filtered);
+        filteredArray.push(filtered);
+
+        return filteredArray;
     };
 
     // + calculates grade average for student
     const average = (grades, length) => {
-        //console.log(grades);
         var sum = 0;
         grades.map((grade) => {
             sum = sum + Number(grade);
@@ -53,8 +51,6 @@ function RecordDisplay() {
 
             // store the data into our records variable
             setRecords(data);
-            setFilteredArray(data);
-            //console.log(data);
         }
     }, []); // <- you may need to put the setRecords function in this array
 
@@ -67,7 +63,6 @@ function RecordDisplay() {
                 placeholder='Search by name'
                 onChange={handleChange}
             />
-            <p>{input}</p>
             <hr />
             {/* display records from the API */}
             {records && (
