@@ -8,6 +8,7 @@ function RecordDisplay() {
             record.firstName.toLowerCase().includes(input.toLowerCase()) ||
             record.lastName.toLowerCase().includes(input.toLowerCase())
     );
+    const [hasError, setHasError] = useState(false);
 
     const handleChange = (e) => {
         const change = e.target.value;
@@ -21,14 +22,16 @@ function RecordDisplay() {
 
         // we will use async/await to fetch this data
         async function getData() {
-            const response = await fetch(
-                'https://api.hatchways.io/assessment/students'
-            );
-            const data = await response.json();
-
-            // store the data into our records variable
-            /* setRecords(data); */
-            setStudents(data.students);
+            try {
+                const response = await fetch(
+                    'https://api.hatchways.io/assessment/students'
+                );
+                const data = await response.json();
+                // store the data into our students variable
+                setStudents(data.students);
+            } catch (e) {
+                setHasError(true);
+            }
         }
     }, []); // <- you may need to put the setRecords function in this array
 
@@ -42,6 +45,7 @@ function RecordDisplay() {
                 onChange={handleChange}
             />
             <hr />
+            {hasError && <h3>Unable to retrieve data!</h3>}
             {/* display records from the API */}
             {students && (
                 <div>
