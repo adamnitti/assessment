@@ -1,3 +1,4 @@
+import { FaMinus, FaPlus } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
 function RecordDisplay() {
@@ -9,6 +10,12 @@ function RecordDisplay() {
             record.lastName.toLowerCase().includes(input.toLowerCase())
     );
     const [hasError, setHasError] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
+
+    const handleClick = (e) => {
+        setCollapsed(!collapsed);
+        //console.log(collapsed);
+    };
 
     const handleChange = (e) => {
         const change = e.target.value;
@@ -36,7 +43,7 @@ function RecordDisplay() {
     }, []); // <- you may need to put the setRecords function in this array
 
     return (
-        <div>
+        <>
             <input
                 className='search-bar'
                 type='text'
@@ -58,9 +65,22 @@ function RecordDisplay() {
                                 alt='icon'
                             />
                             <div>
-                                <h2 className='name'>
-                                    {student.firstName} {student.lastName}
-                                </h2>
+                                <div>
+                                    {collapsed ? (
+                                        <FaPlus
+                                            className='dropdown'
+                                            onClick={handleClick}
+                                        />
+                                    ) : (
+                                        <FaMinus
+                                            className='dropdown'
+                                            onClick={handleClick}
+                                        />
+                                    )}
+                                    <h2 className='name'>
+                                        {student.firstName} {student.lastName}
+                                    </h2>
+                                </div>
                                 <div className='details'>
                                     <p>Email: {student.email}</p>
                                     <p>Company: {student.company}</p>
@@ -78,7 +98,7 @@ function RecordDisplay() {
                     ))}
                 </div>
             )}
-        </div>
+        </>
     );
 }
 
@@ -94,3 +114,9 @@ const average = (grades, length) => {
 };
 
 export default RecordDisplay;
+
+/* {!collapsed &&
+    student.grades.map((grade) => (
+        <p>{grade}</p>
+    ))}
+ */
