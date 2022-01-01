@@ -4,23 +4,34 @@ import { useState, useEffect } from 'react';
 function RecordDisplay() {
     const [students, setStudents] = useState([]);
     const [input, setInput] = useState('');
-    const filteredArray = students.filter(
+    const filteredAddProp = students.map((student) => ({
+        ...student,
+        isOpen: false,
+    }));
+    const filteredArray = filteredAddProp.filter(
         (record) =>
             record.firstName.toLowerCase().includes(input.toLowerCase()) ||
             record.lastName.toLowerCase().includes(input.toLowerCase())
     );
+
     const [hasError, setHasError] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
 
-    const handleClick = (e) => {
-        setCollapsed(!collapsed);
-        //console.log(collapsed);
+    // event handler for clicking on collapse/expand icon
+    const handleClick = (id) => {
+        const singleRecord = filteredArray.find((record) => record.id === id);
+        console.log(singleRecord);
+
+        singleRecord.isOpen = !singleRecord.isOpen;
+
+        console.log(singleRecord.isOpen);
+        return singleRecord;
     };
 
-    const handleChange = (e) => {
-        const change = e.target.value;
-
-        setInput(change);
+    // event handler for search bar input
+    const handleInput = (e) => {
+        const input = e.target.value;
+        setInput(input);
     };
 
     // + adding the use
@@ -44,21 +55,23 @@ function RecordDisplay() {
 
     return (
         <>
-            <input
-                className='search-bar'
-                type='text'
-                id='name-search'
-                placeholder='Search by name'
-                onChange={handleChange}
-            />
-            <hr />
+            <div>
+                <input
+                    className='search-bar'
+                    type='text'
+                    id='name-search'
+                    placeholder='Search by name'
+                    onChange={handleInput}
+                />
+                <hr />
+            </div>
             {hasError && <h3>Unable to retrieve data!</h3>}
             {/* display records from the API */}
             {students && (
                 <div>
                     {/* loop over the records */}
-                    {filteredArray.map((student, id) => (
-                        <div key={id} className='image-txt-container'>
+                    {filteredArray.map((student, index) => (
+                        <div key={index} className='image-txt-container'>
                             <img
                                 className='image-round'
                                 src={student.pic}
@@ -66,17 +79,23 @@ function RecordDisplay() {
                             />
                             <div>
                                 <div>
-                                    {collapsed ? (
-                                        <FaPlus
-                                            className='dropdown'
-                                            onClick={handleClick}
+                                    {console.log(student.isOpen)}
+                                    {student.isOpen ? (
+                                        <FaMinus
+                                            className='collapseExpand'
+                                            onClick={() =>
+                                                handleClick(student.id)
+                                            }
                                         />
                                     ) : (
-                                        <FaMinus
-                                            className='dropdown'
-                                            onClick={handleClick}
+                                        <FaPlus
+                                            className='collapseExpand'
+                                            onClick={() =>
+                                                handleClick(student.id)
+                                            }
                                         />
                                     )}
+
                                     <h2 className='name'>
                                         {student.firstName} {student.lastName}
                                     </h2>
@@ -92,6 +111,18 @@ function RecordDisplay() {
                                             student.grades.length
                                         )}
                                     </p>
+                                    {student.isOpen && (
+                                        <div>
+                                            {student.grades.map(
+                                                (grade, index) => (
+                                                    <p key={index}>
+                                                        Test {index + 1}:{' '}
+                                                        {grade}
+                                                    </p>
+                                                )
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -111,6 +142,11 @@ const average = (grades, length) => {
     });
     var average = sum / length;
     return average;
+};
+
+const changeCollapse = (student) => {
+    //student.isOpen = !student.isOpen;
+    console.log(student.isOpen);
 };
 
 export default RecordDisplay;
