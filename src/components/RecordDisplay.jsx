@@ -90,12 +90,17 @@ function RecordDisplay() {
                         />
                         <div>
                             <div>
-                                <button
-                                    className='collapseExpandMinus'
-                                    onClick={() => handleClick(student.id)}
-                                >
-                                    {student.isOpen ? 'close' : 'open'}
-                                </button>
+                                {student.isOpen ? (
+                                    <FaMinus
+                                        className='collapseExpandMinus'
+                                        onClick={() => handleClick(student.id)}
+                                    />
+                                ) : (
+                                    <FaPlus
+                                        className='collapseExpandMinus'
+                                        onClick={() => handleClick(student.id)}
+                                    />
+                                )}
 
                                 <h2 className='name'>
                                     {student.firstName} {student.lastName}
