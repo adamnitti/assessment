@@ -30,9 +30,18 @@
     font-size: medium;
 }
 
-.collapseExpand {
+.collapseExpandPlus {
     position: absolute;
     right: 50px;
     font-size: x-large;
     opacity: 0.5;
+    color: red;
+}
+
+.collapseExpandMinus {
+    position: absolute;
+    right: 50px;
+    font-size: x-large;
+    opacity: 0.5;
+    color: black;
 }

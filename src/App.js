@@ -1,11 +1,7 @@
 import RecordDisplay from './components/RecordDisplay';
 
 function App() {
-    return (
-        <>
-            <RecordDisplay />
-        </>
-    );
+    return <RecordDisplay />;
 }
 
 export default App;
