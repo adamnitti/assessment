@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 function RecordDisplay() {
     const [students, setStudents] = useState([]);
     const [input, setInput] = useState('');
-    const [tags, setTags] = useState([]);
     const [hasError, setHasError] = useState(false);
+    //const [tags, setTags] = useState([]);
+    //const inputField = useRef('');
 
     const filteredStudents = students.filter((record) => {
         return (
@@ -66,16 +67,27 @@ function RecordDisplay() {
 
     // event handler for search tag input
     const handleTagInput = (e, id) => {
-        console.log(id);
+        const newStudentRecord = students[id - 1];
+        const newStudentList = students;
+        //console.log(newStudentList);
+        //console.log(id);
         const tagInput = e.target.value;
         if (e.key === 'Enter') {
             if (
-                tags.find((tag) => tagInput.toLowerCase() === tag.toLowerCase())
+                newStudentRecord.tags.find(
+                    (tag) => tagInput.toLowerCase() === tag.toLowerCase()
+                )
             ) {
-                console.log('tagInput', tagInput);
+                console.log('duplicate tag', tagInput);
+
                 return;
             }
-            setTags([...tags, tagInput]);
+            e.preventDefault();
+            e.currentTarget.value = '';
+            newStudentRecord.tags.push(tagInput);
+            console.log(newStudentRecord.tags);
+            setStudents(newStudentList);
+            console.log(students);
         }
     };
 
@@ -94,7 +106,6 @@ function RecordDisplay() {
             {/* display records from the API */}
 
             <div>
-                {console.log(students)}
                 {/* loop over the records */}
                 {filteredStudents.map((student, index) => (
                     <div key={index} className='image-txt-container'>
@@ -133,7 +144,7 @@ function RecordDisplay() {
                                     )}
                                 </p>
                                 <div className='tagContainer'>
-                                    {tags.map((tag, index) => (
+                                    {student.tags.map((tag, index) => (
                                         <div key={index}>{tag}</div>
                                     ))}
                                 </div>
