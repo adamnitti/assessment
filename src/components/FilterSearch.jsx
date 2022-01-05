@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import Search from './Search';
+logName('Mason');
+logName1('Mason');
 
-function FilterSearch({ records }) {
-    const [filtered, setFiltered] = useState(records);
-    console.log(filtered);
+const logName = () => {
+    console.log(this);
+};
 
-    return <div>{console.log('in FilterSearch component')}</div>;
-}
+const logName3 = function () {};
 
-export default FilterSearch;
+function logName1() {}

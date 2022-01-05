@@ -30,18 +30,20 @@
     font-size: medium;
 }
 
-.collapseExpandPlus {
-    position: absolute;
-    right: 50px;
-    font-size: x-large;
-    opacity: 0.5;
-    color: red;
+.search-bar-tag {
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: medium;
+    margin-top: 15px;
 }
 
-.collapseExpandMinus {
+.collapseExpand {
     position: absolute;
     right: 50px;
     font-size: x-large;
     opacity: 0.5;
-    color: black;
+}
+
+.gradesList {
+    margin: 0;
 }
