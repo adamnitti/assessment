@@ -141,6 +141,18 @@ function RecordDisplay() {
                                         student.grades.length
                                     )}
                                 </p>
+                                {student.isOpen && (
+                                    <div className='gradesList-div'>
+                                        {student.grades.map((grade, index) => (
+                                            <p
+                                                className='gradesList'
+                                                key={index}
+                                            >
+                                                Test {index + 1}: {grade}
+                                            </p>
+                                        ))}
+                                    </div>
+                                )}
                                 {student.tags && (
                                     <div className='tagContainer'>
                                         {student.tags.map((tag, index) => (
@@ -160,18 +172,6 @@ function RecordDisplay() {
                                     }
                                 />
                                 <hr />
-                                {student.isOpen && (
-                                    <div>
-                                        {student.grades.map((grade, index) => (
-                                            <p
-                                                className='gradesList'
-                                                key={index}
-                                            >
-                                                Test {index + 1}: {grade}
-                                            </p>
-                                        ))}
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </div>

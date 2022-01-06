@@ -7,13 +7,17 @@
 }
 
 .image-txt-container .name {
-    font-size: x-large;
+    font-size: xx-large;
     text-transform: uppercase;
+    padding: 0;
+    margin-top: 20px;
 }
 
 .image-txt-container .details {
     font-size: medium;
+    font-weight: 600;
     padding-left: 20px;
+    margin: 0;
 }
 
 .image-txt-container .image-round {
@@ -34,7 +38,7 @@
     border: none;
     font-family: 'Raleway', sans-serif;
     font-size: medium;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .collapseExpand {
@@ -48,16 +52,20 @@
     margin: 0;
 }
 
+.gradesList-div {
+    margin-bottom: 20px;
+}
+
+.tag-div {
+    margin-top: 20px;
+}
+
 .tag {
-    background-color: gray;
-    padding: 5px;
+    background-color: lightgray;
+    padding: 6px;
     border-radius: 0;
-    /* border-color:white;
-    border-width: 3px;
-    border-style: solid; */
-    font-size: small;
-    /* font-weight: bold; */
-    color: white;
-    margin: 5px;
-    /* margin-left: 70px; */
+    font-size: medium;
+    font-weight: bold;
+    color: black;
+    margin: 3px;
 }
