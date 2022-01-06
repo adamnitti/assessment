@@ -47,3 +47,17 @@
 .gradesList {
     margin: 0;
 }
+
+.tag {
+    background-color: gray;
+    padding: 5px;
+    border-radius: 0;
+    /* border-color:white;
+    border-width: 3px;
+    border-style: solid; */
+    font-size: small;
+    /* font-weight: bold; */
+    color: white;
+    margin: 5px;
+    /* margin-left: 70px; */
+}

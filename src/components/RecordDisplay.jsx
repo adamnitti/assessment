@@ -5,8 +5,6 @@ function RecordDisplay() {
     const [students, setStudents] = useState([]);
     const [input, setInput] = useState('');
     const [hasError, setHasError] = useState(false);
-    //const [tags, setTags] = useState([]);
-    //const inputField = useRef('');
 
     const filteredStudents = students.filter((record) => {
         return (
@@ -41,7 +39,13 @@ function RecordDisplay() {
         }
 
         getData();
-    }, []); // <- you may need to put the setRecords function in this array
+    }, []);
+
+    // event handler for search bar input
+    const handleInput = (e) => {
+        const input = e.target.value;
+        setInput(input);
+    };
 
     // event handler for clicking on collapse/expand icon
     const handleClick = (id) => {
@@ -59,36 +63,30 @@ function RecordDisplay() {
         setStudents(newStudents);
     };
 
-    // event handler for search bar input
-    const handleInput = (e) => {
-        const input = e.target.value;
-        setInput(input);
-    };
-
-    // event handler for search tag input
-    const handleTagInput = (e, id) => {
-        const newStudentRecord = students[id - 1];
-        const newStudentList = students;
-        //console.log(newStudentList);
-        //console.log(id);
+    // event handler for create tag input
+    const handleTagInput = (e, studentId) => {
         const tagInput = e.target.value;
-        if (e.key === 'Enter') {
-            if (
-                newStudentRecord.tags.find(
-                    (tag) => tagInput.toLowerCase() === tag.toLowerCase()
-                )
-            ) {
-                console.log('duplicate tag', tagInput);
+        if (e.key !== 'Enter' || !tagInput) return;
 
-                return;
+        const newStudentList = students.map((student) => {
+            if (student.id === studentId) {
+                if (
+                    student.tags.find(
+                        (tag) => tagInput.toLowerCase() === tag.toLowerCase()
+                    )
+                ) {
+                    console.log('duplicate tag', tagInput);
+                    alert('Duplicate tag name!');
+
+                    return student;
+                }
+                return { ...student, tags: [...student.tags, tagInput] };
             }
-            e.preventDefault();
-            e.currentTarget.value = '';
-            newStudentRecord.tags.push(tagInput);
-            console.log(newStudentRecord.tags);
-            setStudents(newStudentList);
-            console.log(students);
-        }
+            return student;
+        });
+        console.log(newStudentList);
+        setStudents(newStudentList);
+        e.currentTarget.value = '';
     };
 
     return (
@@ -143,11 +141,16 @@ function RecordDisplay() {
                                         student.grades.length
                                     )}
                                 </p>
-                                <div className='tagContainer'>
-                                    {student.tags.map((tag, index) => (
-                                        <div key={index}>{tag}</div>
-                                    ))}
-                                </div>
+                                {student.tags && (
+                                    <div className='tagContainer'>
+                                        {student.tags.map((tag, index) => (
+                                            <span className='tag' key={index}>
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                )}
+
                                 <input
                                     type='text'
                                     className='search-bar-tag'
