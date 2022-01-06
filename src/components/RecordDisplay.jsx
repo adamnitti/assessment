@@ -3,13 +3,18 @@ import { useState, useEffect } from 'react';
 
 function RecordDisplay() {
     const [students, setStudents] = useState([]);
-    const [input, setInput] = useState('');
+    const [nameSearchInput, setNameSearchInput] = useState('');
+    const [tagSearchInput, setTagSearchInput] = useState('');
     const [hasError, setHasError] = useState(false);
 
     const filteredStudents = students.filter((record) => {
         return (
-            record.firstName.toLowerCase().includes(input.toLowerCase()) ||
-            record.lastName.toLowerCase().includes(input.toLowerCase())
+            record.firstName
+                .toLowerCase()
+                .includes(nameSearchInput.toLowerCase()) ||
+            record.lastName
+                .toLowerCase()
+                .includes(nameSearchInput.toLowerCase())
         );
     });
 
@@ -42,9 +47,15 @@ function RecordDisplay() {
     }, []);
 
     // event handler for search bar input
-    const handleInput = (e) => {
+    const handleNameSearchInput = (e) => {
         const input = e.target.value;
-        setInput(input);
+        setNameSearchInput(input);
+    };
+
+    // event handler for tag search bar input
+    const handleTagSearchInput = (e) => {
+        const input = e.target.value;
+        setTagSearchInput(input);
     };
 
     // event handler for clicking on collapse/expand icon
@@ -96,7 +107,15 @@ function RecordDisplay() {
                 type='text'
                 id='name-search'
                 placeholder='Search by name'
-                onChange={handleInput}
+                onChange={handleNameSearchInput}
+            />
+            <hr />
+            <input
+                className='search-bar'
+                type='text'
+                id='tag-search'
+                placeholder='Search by tag'
+                onChange={handleTagSearchInput}
             />
             <hr />
 
